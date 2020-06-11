@@ -20,7 +20,24 @@ function App() {
 
  //useEffect para realizar la consulta en el momento que este lista
  useEffect(()=>{
-   console.log(ciudad);
+
+  const consultarApi = async () =>{
+
+    if(consulta){
+      const appId = "93659cb3a4ee98da3ede1f896898849f"; //id generado por openweather para este proyecto
+
+    const url=`http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`
+
+    // api.openweathermap.org/data/2.5/weather?q={city name},{state code}&appid={your api key} direccion para consultar la api
+
+    const respuesta = await fetch(url);
+    const resultado= await respuesta.json();
+
+    console.log(resultado);
+    }
+  }
+
+  consultarApi();
  }, [consulta]);
 
   return (
