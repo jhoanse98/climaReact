@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
 
-const Formulario = () => {
+const Formulario = ({busqueda, guardarBusqueda, guardarConsulta}) => {
+
     //el Input y luego el label es por los estilos de materialize que aplica en ese orden
     //el label no se usa con for debido a que es una palabra reservada de JS, por lo tanto se usa htmlFor
     
-    const [busqueda, guardarBusqueda] = useState({
-        ciudad: "",
-        pais: "",
-      })
-    
+
     const {ciudad, pais} = busqueda;
 
+    //state para error (validar el formulario)
+
+    const [error, guardarError] = useState(false);
+
+    //Guardar en el state lo del formulario
     const handleChange = e => {
         guardarBusqueda({
             ...busqueda,
@@ -19,10 +21,28 @@ const Formulario = () => {
 
     }
 
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        //validar formulario
+        if( pais.trim() === "" || ciudad.trim() === "" ){
+            guardarError(true);
+            return;
+        }
+
+        guardarError(false);
+
+        //Avisar que la consulta está lista
+        guardarConsulta(true);
+    }
+
     
 
     return (
-        <form>
+        <form
+            onSubmit={handleSubmit}
+        >
+            {error ? <p className="red darken-4 error">Todos los campos son obligatorios</p> : null}
             <div className="input-field col s12">
                 <input
                     type="text"
@@ -51,6 +71,14 @@ const Formulario = () => {
 
                 </select>
                 <label htmlFor="pais">Pais: </label>
+            </div>
+
+            <div className="input-field col s12">
+                <input
+                    type="submit"
+                    value="Buscar clima"
+                    className="waves-effect waves-light btn-large btn-block yellow accent-4"
+                ></input>
             </div>
         </form>
       );
