@@ -37,7 +37,7 @@ function App() {
     if(consulta){
       const appId = "93659cb3a4ee98da3ede1f896898849f"; //id generado por openweather para este proyecto
 
-    const url=`http://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`
+    const url=`https://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`
 
     // api.openweathermap.org/data/2.5/weather?q={city name},{state code}&appid={your api key} direccion para consultar la api
 
@@ -58,6 +58,8 @@ function App() {
   }
 
   consultarApi();
+
+  //eslint-disable-next-line
  }, [consulta]);
 
 
